@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -42,33 +42,42 @@ public class SeleniumGridBrowserFactory implements BrowserFactory {
 
     @Override
     public Browser openBrowser() {
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        
-        if (platform != null) {
-            desiredCapabilities.setPlatform(platform);
-        }
-        
-        if (browser != null) {
-            desiredCapabilities.setBrowserName(browser);
-        }
-        
-        if (browserVersion != null) {
-            desiredCapabilities.setVersion(browserVersion);
-        }
-        
-        for (Map.Entry<String, String> dc : this.desiredCapabilities.entrySet()) {
-            desiredCapabilities.setCapability(dc.getKey(), dc.getValue());
-        }
         
         try {
             
-            WebDriver driver = new RemoteWebDriver(new URL(gridUrl), desiredCapabilities);
+            WebDriver driver = new RemoteWebDriver(new URL(gridUrl), this.createCapabilities());
             WebDriver augmentedDriver = new Augmenter().augment(driver);
         	return new SeleniumBrowser(augmentedDriver);
         }
         catch (Exception ex) {
         	throw new RuntimeException(ex);
         }
+    }
+
+    public DesiredCapabilities createCapabilities(){
+        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+
+        if (platform != null) {
+            desiredCapabilities.setPlatform(platform);
+        }
+
+        if (browser != null) {
+            desiredCapabilities.setBrowserName(browser);
+        }
+
+        if (browserVersion != null) {
+            desiredCapabilities.setVersion(browserVersion);
+        }
+
+        for (Map.Entry<String, String> dc : this.desiredCapabilities.entrySet()) {
+            final String value = dc.getValue();
+            if("true".equals(value) || "false".equals(value)) {
+                desiredCapabilities.setCapability(dc.getKey(), Boolean.parseBoolean(value));
+            } else {
+                desiredCapabilities.setCapability(dc.getKey(), value);
+            }
+        }
+        return desiredCapabilities;
     }
 
     public SeleniumGridBrowserFactory withBrowser(String browser) {

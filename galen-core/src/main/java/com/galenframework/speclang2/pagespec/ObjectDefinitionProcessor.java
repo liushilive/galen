@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ public class ObjectDefinitionProcessor {
 
         for (int index = 1; index <= count; index++) {
             addObjectToSpec(objectNode, objectName.replace("*", Integer.toString(index)),
-                    new Locator(locator.getLocatorType(), locator.getLocatorValue(), index).withParent(locator.getParent()),
+                    new Locator(locator.getLocatorType(), locator.getLocatorValue(), index).withParent(locator.getParent()).withCorrections(locator.getCorrections()),
                     groupsForThisObject);
         }
     }

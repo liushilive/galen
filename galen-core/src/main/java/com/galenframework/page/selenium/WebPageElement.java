@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -73,7 +73,12 @@ public class WebPageElement extends PageElement {
     
     @Override
     public boolean isVisible() {
-        return getWebElement().isDisplayed();
+        try {
+            return getWebElement().isDisplayed();
+        }
+        catch (StaleElementReferenceException e) {
+            return false;
+        }
     }
 
     @Override

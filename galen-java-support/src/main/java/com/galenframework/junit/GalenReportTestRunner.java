@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class GalenReportTestRunner extends Parameterized {
     @Override
     public void run(final RunNotifier pRunNotifier) {
         this.notifier = pRunNotifier;
-        notifier.addFirstListener(new JUnitStepListener());
-        super.run(notifier);
+        this.notifier.addFirstListener(new JUnitStepListener());
+        super.run(this.notifier);
     }
 }

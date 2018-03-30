@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -90,7 +90,7 @@ public class EventHandler {
                     try {
                         event.execute();
                     } catch (Throwable ex) {
-                        LOG.error("Unknow error during executing test suites.", ex);
+                        LOG.error("Unknown error during executing test suites.", ex);
                     }
                 }
             }
@@ -112,7 +112,7 @@ public class EventHandler {
                     try {
                         event.execute(testInfo);
                     } catch (Throwable ex) {
-                        LOG.error("Unknow error during executing test events.", ex);
+                        LOG.error("Unknown error during executing test events.", ex);
                     }
                 }
             }

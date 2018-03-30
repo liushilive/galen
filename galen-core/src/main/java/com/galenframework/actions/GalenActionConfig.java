@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -44,14 +44,21 @@ public class GalenActionConfig extends GalenAction {
             if (!file.createNewFile()) {
                 throw new RuntimeException("Could not create file: " + file.getAbsolutePath());
             }
-            FileOutputStream fos = new FileOutputStream(file);
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(file);
 
-            StringWriter writer = new StringWriter();
-            IOUtils.copy(getClass().getResourceAsStream("/config-template.conf"), writer, "UTF-8");
-            IOUtils.write(writer.toString(), fos, "UTF-8");
-            fos.flush();
-            fos.close();
-            outStream.println("Created config file: " + file.getAbsolutePath());
+                StringWriter writer = new StringWriter();
+                IOUtils.copy(getClass().getResourceAsStream("/config-template.conf"), writer, "UTF-8");
+                IOUtils.write(writer.toString(), fos, "UTF-8");
+                fos.flush();
+                fos.close();
+                outStream.println("Created config file: " + file.getAbsolutePath());
+            } finally {
+                if (fos!=null) {
+                    fos.close();
+                }
+            }
         } else {
             errStream.println("Config file already exists");
         }

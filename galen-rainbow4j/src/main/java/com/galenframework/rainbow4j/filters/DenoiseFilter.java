@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -81,17 +81,20 @@ public class DenoiseFilter implements ImageFilter {
 
                     int k = yc * width * ImageHandler.BLOCK_SIZE + xc * ImageHandler.BLOCK_SIZE;
 
-                    int blurredRed = (int) (ar / sumWeight);
-                    int blurredGreen = (int) (ag / sumWeight);
-                    int blurredBlue = (int) (ab / sumWeight);
+                    if(sumWeight > 0) {
 
-                    if (    blurredRed < normalThreshold
+                        int blurredRed = (int) (ar / sumWeight);
+                        int blurredGreen = (int) (ag / sumWeight);
+                        int blurredBlue = (int) (ab / sumWeight);
+
+                        if (blurredRed < normalThreshold
                             && blurredGreen < normalThreshold
                             && blurredBlue < normalThreshold
                             ) {
-                        bytes.put(k, (byte) 0);
-                        bytes.put(k + 1, (byte) 0);
-                        bytes.put(k + 2, (byte) 0);
+                            bytes.put(k, (byte) 0);
+                            bytes.put(k + 1, (byte) 0);
+                            bytes.put(k + 2, (byte) 0);
+                        }
                     }
                 }
             }

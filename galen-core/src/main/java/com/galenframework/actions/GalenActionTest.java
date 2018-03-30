@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -222,7 +222,7 @@ public class GalenActionTest extends GalenAction {
             try {
                 listener.beforeTestSuite(tests);
             } catch (Exception ex) {
-                LOG.error("Unknow error before running testsuites.", ex);
+                LOG.error("Unknown error before running testsuites.", ex);
             }
         }
     }
@@ -232,7 +232,7 @@ public class GalenActionTest extends GalenAction {
             try {
                 listener.afterTestSuite(testInfos);
             } catch (Exception ex) {
-                LOG.error("Unknow error after running testsuites.", ex);
+                LOG.error("Unknown error after running testsuites.", ex);
             }
         }
     }

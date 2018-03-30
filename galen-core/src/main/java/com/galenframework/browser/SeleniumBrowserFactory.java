@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright 2016 Ivan Shubin http://galenframework.com
+* Copyright 2017 Ivan Shubin http://galenframework.com
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -116,15 +116,15 @@ public class SeleniumBrowserFactory implements BrowserFactory {
 
     public static DesiredCapabilities getBrowserCapabilities(String driverParameter) {
         DesiredCapabilities capabilities = null;
-        if (driverParameter.equalsIgnoreCase(FIREFOX)) {
+        if (driverParameter == null || driverParameter.equalsIgnoreCase(FIREFOX)) {
             capabilities = DesiredCapabilities.firefox();
         }
-        if (driverParameter.equalsIgnoreCase(IE)) {
+        else if (driverParameter.equalsIgnoreCase(IE)) {
             capabilities = DesiredCapabilities.internetExplorer();
             capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
             capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
         }
-        if (driverParameter.equalsIgnoreCase(CHROME)) {
+        else if (driverParameter.equalsIgnoreCase(CHROME)) {
             capabilities = DesiredCapabilities.chrome();
         }
         return capabilities;
